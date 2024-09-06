@@ -1,32 +1,35 @@
 
 <?php
-// Definición de variables
-$nombre = "María";
-$edad = 30;
-$ciudad = "Madrid";
+// Definir variables
+$nombre_completo = "Antonio Estrada Mendoza";
+$edad = 20; // edad real
+$correo = "antonio.estrada1@utp.ac.pa"; // tu correo real
+$telefono = "6525-6504"; // tu número real
 
-// Definición de constante
-define("PROFESION", "Ingeniera");
+// Definir constante
+define("OCUPACION", "Estudiante");
 
-// Creación de mensaje usando diferentes métodos de concatenación e impresión
-$mensaje1 = "Hola, mi nombre es " . $nombre . " y tengo " . $edad . " años.";
-$mensaje2 = "Vivo en $ciudad y soy " . PROFESION . ".";
+// Mostrar la información usando diferentes métodos de impresión
+echo "Nombre Completo: " . $nombre_completo . "<br>"; // Concatenación con punto
+print "Edad: $edad<br>"; // Interpolación directa
+printf("Correo: %s<br>", $correo); // printf con formato
+echo "Teléfono: {$telefono}<br>"; // Interpolación con llaves
+echo "Ocupación: " . OCUPACION . "<br>"; // Concatenación con constante
 
-echo $mensaje1 . "<br>";
-print($mensaje2 . "<br>");
-
-printf("En resumen: %s, %d años, %s, %s<br>", $nombre, $edad, $ciudad, PROFESION);
-
-echo "<br>Información de debugging:<br>";
-var_dump($nombre);
+// Mostrar el tipo y valor de cada variable
+echo "<br>Información de las variables y constante:<br>";
+var_dump($nombre_completo);
 echo "<br>";
 var_dump($edad);
 echo "<br>";
-var_dump($ciudad);
+var_dump($correo);
 echo "<br>";
-var_dump(PROFESION);
+var_dump($telefono);
 echo "<br>";
+var_dump(OCUPACION);
 ?>
+
+
                     
 
                     
