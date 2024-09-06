@@ -13,5 +13,4 @@ echo count ($texto);
 $array = ["mundo!","Hola"];
 echo "<br>";
 echo implode ("",$array);
-
 ?>
