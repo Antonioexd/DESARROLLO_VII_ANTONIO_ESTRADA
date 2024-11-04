@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Productos</title>
+    <script>
+        let isLoading = false;
+        let currentPage = 1;
+        let perPage = 10;
+
+        // Cargar más productos cuando se hace scroll
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !isLoading) {
+                loadMoreProducts();
+            }
+        });
+
+        function loadMoreProducts() {
+            isLoading = true;
+            currentPage++;
+
+            fetch(`/catalog.php?page=${currentPage}&perPage=${perPage}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.results.forEach(product => {
+                        document.getElementById('products').insertAdjacentHTML('beforeend', `
+                            <div class="product">
+                                <h2>${product.name}</h2>
+                                <p>${product.description}</p>
+                            </div>
+                        `);
+                    });
+                    isLoading = currentPage < data.pageInfo.total_pages;
+                })
+                .catch(() => {
+                    isLoading = false;
+                    alert('Error cargando más productos');
+                });
+        }
+
+        // Cambiar el número de elementos por página
+        function changeItemsPerPage() {
+            perPage = document.getElementById('itemsPerPage').value;
+            currentPage = 1;
+            document.getElementById('products').innerHTML = '';
+            loadMoreProducts();
+        }
+    </script>
+</head>
+<body>
+    <h1>Catálogo de Productos</h1>
+
+    <!-- Selector para el número de elementos por página -->
+    <label for="itemsPerPage">Elementos por página:</label>
+    <select id="itemsPerPage" onchange="changeItemsPerPage()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+    </select>
+
+    <!-- Enlace para exportar a CSV -->
+    <a href="/catalog.php?export=csv">Exportar a CSV</a>
+
+    <!-- Contenedor de productos -->
+    <div id="products"></div>
+</body>
+</html>
